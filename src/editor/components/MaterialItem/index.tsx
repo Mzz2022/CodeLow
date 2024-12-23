@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+// @ts-ignore
 import { useEffect, useRef } from "react";
 import { useDrag } from "react-dnd";
 

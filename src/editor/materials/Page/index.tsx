@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { CommonComponentProps } from "../../interface";
 import { useMaterailDrop } from "../../hooks/useMaterialDrop";
-
+// @ts-ignore
 function Page({ id, name, children }: CommonComponentProps) {
   const { canDrop, drop } = useMaterailDrop(["Button", "Container"], id);
 

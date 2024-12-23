@@ -1,9 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+// @ts-ignore
 import React, { useEffect } from "react";
 import { useComponentConfigStore } from "../../stores/component-config";
 import { Component, useComponetsStore } from "../../stores/components";
 
 export function EditArea() {
+  // @ts-ignore
   const { components, addComponent } = useComponetsStore();
   const { componentConfig } = useComponentConfigStore();
 
