@@ -1,5 +1,5 @@
-```shell
-npm run dev
-```
+# 低代码编辑器
 
-allotment 实现可拖动改变大小的 pane
+npm install
+
+npm run dev

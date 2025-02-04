@@ -1,18 +1,19 @@
-import { useEffect, useMemo, useState } from "react";
-import { createPortal } from "react-dom";
-import { getComponentById, useComponetsStore } from "../../stores/components";
+import {
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
+import { createPortal } from 'react-dom';
+import { getComponentById, useComponetsStore } from '../../stores/components';
 
 interface HoverMaskProps {
   portalWrapperClassName: string;
-  containerClassName: string;
+  containerClassName: string
   componentId: number;
 }
 
-function HoverMask({
-  containerClassName,
-  portalWrapperClassName,
-  componentId,
-}: HoverMaskProps) {
+function HoverMask({ containerClassName, portalWrapperClassName, componentId }: HoverMaskProps) {
+
   const [position, setPosition] = useState({
     left: 0,
     top: 0,
@@ -28,6 +29,10 @@ function HoverMask({
     updatePosition();
   }, [componentId]);
 
+  useEffect(() => {
+    updatePosition();
+  }, [components]);
+
   function updatePosition() {
     if (!componentId) return;
 
@@ -38,8 +43,7 @@ function HoverMask({
     if (!node) return;
 
     const { top, left, width, height } = node.getBoundingClientRect();
-    const { top: containerTop, left: containerLeft } =
-      container.getBoundingClientRect();
+    const { top: containerTop, left: containerLeft } = container.getBoundingClientRect();
 
     let labelTop = top - containerTop + container.scrollTop;
     let labelLeft = left - containerLeft + width;
@@ -47,7 +51,7 @@ function HoverMask({
     if (labelTop <= 0) {
       labelTop -= -20;
     }
-
+  
     setPosition({
       top: top - containerTop + container.scrollTop,
       left: left - containerLeft + container.scrollTop,
@@ -59,14 +63,14 @@ function HoverMask({
   }
 
   const el = useMemo(() => {
-    return document.querySelector(`.${portalWrapperClassName}`)!;
+      return document.querySelector(`.${portalWrapperClassName}`)!
   }, []);
 
   const curComponent = useMemo(() => {
     return getComponentById(componentId, components);
   }, [componentId]);
 
-  return createPortal(
+  return createPortal((
     <>
       <div
         style={{
@@ -80,36 +84,35 @@ function HoverMask({
           height: position.height,
           zIndex: 12,
           borderRadius: 4,
-          boxSizing: "border-box",
+          boxSizing: 'border-box',
         }}
       />
       <div
-        style={{
-          position: "absolute",
-          left: position.labelLeft,
-          top: position.labelTop,
-          fontSize: "14px",
-          zIndex: 13,
-          display: !position.width || position.width < 10 ? "none" : "inline",
-          transform: "translate(-100%, -100%)",
-        }}
-      >
-        <div
           style={{
-            padding: "0 8px",
-            backgroundColor: "blue",
-            borderRadius: 4,
-            color: "#fff",
-            cursor: "pointer",
-            whiteSpace: "nowrap",
+            position: "absolute",
+            left: position.labelLeft,
+            top: position.labelTop,
+            fontSize: "14px",
+            zIndex: 13,
+            display: (!position.width || position.width < 10) ? "none" : "inline",
+            transform: 'translate(-100%, -100%)',
           }}
         >
-          {curComponent?.name}
+          <div
+            style={{
+              padding: '0 8px',
+              backgroundColor: 'blue',
+              borderRadius: 4,
+              color: '#fff',
+              cursor: "pointer",
+              whiteSpace: 'nowrap',
+            }}
+          >
+            {curComponent?.desc}
+          </div>
         </div>
-      </div>
-    </>,
-    el
-  );
+    </>
+  ), el)
 }
 
 export default HoverMask;

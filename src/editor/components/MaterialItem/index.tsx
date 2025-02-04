@@ -1,26 +1,27 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-// @ts-ignore
-import { useEffect, useRef } from "react";
 import { useDrag } from "react-dnd";
 
 export interface MaterialItemProps {
-  name: string;
+    name: string
+    desc: string
 }
 
 export function MaterialItem(props: MaterialItemProps) {
-  const { name } = props;
 
-  const [_, drag] = useDrag({
-    type: name,
-    item: {
-      type: name,
-    },
-  });
+    const {
+        name,
+        desc
+    } = props;
 
-  return (
-    <div
-      ref={drag}
-      className="
+    const [_, drag] = useDrag({
+        type: name,
+        item: {
+            type: name
+        }
+    });
+
+    return <div
+        ref={drag}
+        className='
             border-dashed
             border-[1px]
             border-[#000]
@@ -30,9 +31,8 @@ export function MaterialItem(props: MaterialItemProps) {
             inline-block
             bg-white
             hover:bg-[#ccc]
-        "
+        '
     >
-      {name}
+        {desc}
     </div>
-  );
 }
